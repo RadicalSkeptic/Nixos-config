@@ -88,9 +88,10 @@
   # services.xserver.libinput.enable = true;
 
   # Podman
+  hardware.nvidia-container-toolkit.enable = true;
   virtualisation.podman = {
     enable = true;
-    dockerCompat = true;
+  #  dockerCompat = true;
   };
 
   # Fonts
@@ -125,9 +126,6 @@
   # Git
   programs.git.enable = true;
 
-  # Install firefox.
-  #programs.firefox.enable = true;
-
   # Chromium
   programs.chromium = {
     enable = true;
@@ -145,6 +143,8 @@
     ];
     extraOpts = {
       "PasswordManagerEnabled" = false;
+      "BackgroundModeEnabled" = false;
+      "RestoreOnStartup" = 1;
       "WebAppInstallForceList" = [
         {
           "custom_name" = "Youtube";
@@ -207,16 +207,13 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    wget
-    ghostty
+    vim
     distrobox
     boxbuddy
     quantum-espresso
     vesta-viewer
     fastfetch
     vlc
-    yazi
     vscode
     python3
     google-chrome
