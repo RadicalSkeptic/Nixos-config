@@ -132,6 +132,7 @@
   programs.chromium = {
     enable = true;
     homepageLocation = "https://www.startpage.com/";
+    enablePlasmaBrowserIntegration = true;
     extensions = [
       "eimadpbcbfnmbkopoojfekhnkhdbieeh;https://clients2.google.com/service/update2/crx" # dark reader
       "blcdfhbibkkjpfdddnmnmhfgjlicebba;https://clients2.google.com/service/update2/crx" # limit
@@ -143,54 +144,55 @@
       "ghbmnnjooekpmoecnnnilnnbdlolhkhi;https://clients2.google.com/service/update2/crx" # google docs offline
     ];
     extraOpts = {
+      "PasswordManagerEnabled" = false;
       "WebAppInstallForceList" = [
         {
           "custom_name" = "Youtube";
           "create_desktop_shortcut" = true;
           "default_launch_container" = "window";
-          "url" = "https://youtube.com";
+          "url" = "https://www.youtube.com/";
         }
         {
           "custom_name" = "Youtube Music";
           "create_desktop_shortcut" = true;
           "default_launch_container" = "window";
-          "url" = "https://music.youtube.com";
+          "url" = "https://music.youtube.com/?source=pwa";
         }
         {
           "custom_name" = "GitHub";
           "create_desktop_shortcut" = true;
           "default_launch_container" = "window";
-          "url" = "https://github.com";
+          "url" = "https://github.com/";
         }
         {
           "custom_name" = "ChatGPT";
           "create_desktop_shortcut" = true;
           "default_launch_container" = "window";
-          "url" = "https://chatgpt.com";
+          "url" = "https://chatgpt.com/";
         }
         {
           "custom_name" = "Whatsapp Web";
           "create_desktop_shortcut" = true;
           "default_launch_container" = "window";
-          "url" = "https://web.whatsapp.com";
+          "url" = "https://web.whatsapp.com/";
         }
         {
             "custom_name" = "LeetCode";
             "create_desktop_shortcut" = true;
             "default_launch_container" = "window";
-            "url" = "https://leetcode.com";
+            "url" = "https://leetcode.com/problemset/";
         }
         {
             "custom_name" = "Gmail";
             "create_desktop_shortcut" = true;
             "default_launch_container" = "window";
-            "url" = "https://mail.google.com";
+            "url" = "https://mail.google.com/mail/u/0/#inbox";
         }
         {
           "custom_name" = "Google Drive";
           "create_desktop_shortcut" = true;
           "default_launch_container" = "window";
-          "url" = "https://drive.google.com";
+          "url" = "https://drive.google.com/drive/my-drive";
         }
       ];
     };
@@ -217,7 +219,7 @@
     yazi
     vscode
     python3
-    chromium
+    google-chrome
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
