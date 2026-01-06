@@ -18,7 +18,7 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking.hostName = "nixos"; # Define your hostname.
-  #  networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -47,25 +47,17 @@
 
   # Enable the X11 windowing system.
   # You can disable this if you're only using the Wayland session.
-  # services.xserver.enable = true;
+  services.xserver.enable = true;
 
   # Enable the KDE Plasma Desktop Environment.
-  # services.displayManager.sddm.enable = true;
-  # services.desktopManager.plasma6.enable = true;
+  services.displayManager.sddm.enable = true;
+  services.desktopManager.plasma6.enable = true;
 
-  services.displayManager.ly.enable = true;
-
-  programs.niri.enable = true;
-
-  security.polkit.enable = true; # polkit
-services.gnome.gnome-keyring.enable = true; # secret service
-security.pam.services.swaylock = {};
-
-programs.waybar.enable = true; # top bar
-
+  # Nvidia
   hardware.graphics.enable = true;
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia.open = true;
+  hardware.nvidia.modesetting.enable = true;
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -74,7 +66,7 @@ programs.waybar.enable = true; # top bar
   };
 
   # Enable CUPS to print documents.
-  # services.printing.enable = true;
+  #services.printing.enable = true;
 
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;
@@ -95,24 +87,59 @@ programs.waybar.enable = true; # top bar
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
+  # Podman
+  virtualisation.podman = {
+    enable = true;
+    dockerCompat = true;
+  };
+
+  # Fonts
+  fonts = {
+    enableDefaultPackages = true;
+    packages = with pkgs; [
+      noto-fonts
+      noto-fonts-cjk-sans
+      noto-fonts-cjk-serif
+      noto-fonts-color-emoji
+      dejavu_fonts
+      lohit-fonts.bengali
+      liberation_ttf
+      fira-code
+      fira-code-symbols
+      nerd-fonts.fira-code
+      nerd-fonts.droid-sans-mono
+      nerd-fonts.jetbrains-mono
+    ];
+
+#     fontconfig = {
+#       defaultFonts = {
+#         serif = [  "Noto Serif" "DejaVu Serif"  ];
+#         sansSerif = [ "Noto Sans" "DejaVu Sans"  ];
+#         monospace = [ "JetBrains Mono" "DejaVu Sans Mono" ];
+#         emoji = [ "Noto Color Emoji" ];
+#       };
+#     };
+  };
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.aorus = {
+  users.users.sifat = {
     isNormalUser = true;
-    description = "aorus";
+    description = "sifat";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
       kdePackages.kate
-    #  thunderbird
+      google-chrome
     ];
   };
 
-  virtualisation.podman = {
-  enable = true;
-  dockerCompat = true;
-};
+  # Git
+  programs.git.enable = true;
 
   # Install firefox.
   programs.firefox.enable = true;
+
+  # KDE Connect
+  programs.kdeconnect.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -120,32 +147,19 @@ programs.waybar.enable = true; # top bar
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #  wget
-    vimPlugins.LazyVim    
-    podman
-    boxbuddy
+    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    wget
+    ghostty
     distrobox
-    btop
+    boxbuddy
+    quantum-espresso
+    vesta-viewer
     fastfetch
-    alacritty
-    fuzzel
-    swaylock
-    mako
-    swayidle
-    xwayland-satellite # xwayland support
-    fzf
-    zoxide
+    vlc
     yazi
-    git
-    xfce.thunar
+    vscode
+    python3
   ];
-
-  fonts.packages = with pkgs; [
-   nerd-fonts.jetbrains-mono
-  ];
-
-  #nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
