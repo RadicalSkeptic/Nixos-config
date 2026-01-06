@@ -110,15 +110,6 @@
       nerd-fonts.droid-sans-mono
       nerd-fonts.jetbrains-mono
     ];
-
-#     fontconfig = {
-#       defaultFonts = {
-#         serif = [  "Noto Serif" "DejaVu Serif"  ];
-#         sansSerif = [ "Noto Sans" "DejaVu Sans"  ];
-#         monospace = [ "JetBrains Mono" "DejaVu Sans Mono" ];
-#         emoji = [ "Noto Color Emoji" ];
-#       };
-#     };
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
@@ -128,7 +119,6 @@
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
       kdePackages.kate
-      google-chrome
     ];
   };
 
@@ -136,7 +126,75 @@
   programs.git.enable = true;
 
   # Install firefox.
-  programs.firefox.enable = true;
+  #programs.firefox.enable = true;
+
+  # Chromium
+  programs.chromium = {
+    enable = true;
+    homepageLocation = "https://www.startpage.com/";
+    extensions = [
+      "eimadpbcbfnmbkopoojfekhnkhdbieeh;https://clients2.google.com/service/update2/crx" # dark reader
+      "blcdfhbibkkjpfdddnmnmhfgjlicebba;https://clients2.google.com/service/update2/crx" # limit
+      "gebbhagfogifgggkldgodflihgfeippi;https://clients2.google.com/service/update2/crx" # return youtube dislike
+      "dbepggeogbaibhgnhhndojpepiihcmeb;https://clients2.google.com/service/update2/crx" # vimium
+      "ghmbeldphafepmbegfdlkpapadhbakde;https://clients2.google.com/service/update2/crx" # proton pass
+      "ddkjiahejlhfcafbddmgiahcphecmpfh;https://clients2.google.com/service/update2/crx" # ublock origin lite
+      "cimiefiiaegbelhefglklhhakcgmhkai;https://clients2.google.com/service/update2/crx" # plasma integration
+      "ghbmnnjooekpmoecnnnilnnbdlolhkhi;https://clients2.google.com/service/update2/crx" # google docs offline
+    ];
+    extraOpts = {
+      "WebAppInstallForceList" = [
+        {
+          "custom_name" = "Youtube";
+          "create_desktop_shortcut" = true;
+          "default_launch_container" = "window";
+          "url" = "https://youtube.com";
+        }
+        {
+          "custom_name" = "Youtube Music";
+          "create_desktop_shortcut" = true;
+          "default_launch_container" = "window";
+          "url" = "https://music.youtube.com";
+        }
+        {
+          "custom_name" = "GitHub";
+          "create_desktop_shortcut" = true;
+          "default_launch_container" = "window";
+          "url" = "https://github.com";
+        }
+        {
+          "custom_name" = "ChatGPT";
+          "create_desktop_shortcut" = true;
+          "default_launch_container" = "window";
+          "url" = "https://chatgpt.com";
+        }
+        {
+          "custom_name" = "Whatsapp Web";
+          "create_desktop_shortcut" = true;
+          "default_launch_container" = "window";
+          "url" = "https://web.whatsapp.com";
+        }
+        {
+            "custom_name" = "LeetCode";
+            "create_desktop_shortcut" = true;
+            "default_launch_container" = "window";
+            "url" = "https://leetcode.com";
+        }
+        {
+            "custom_name" = "Gmail";
+            "create_desktop_shortcut" = true;
+            "default_launch_container" = "window";
+            "url" = "https://mail.google.com";
+        }
+        {
+          "custom_name" = "Google Drive";
+          "create_desktop_shortcut" = true;
+          "default_launch_container" = "window";
+          "url" = "https://drive.google.com";
+        }
+      ];
+    };
+  };
 
   # KDE Connect
   programs.kdeconnect.enable = true;
@@ -159,6 +217,7 @@
     yazi
     vscode
     python3
+    chromium
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
